@@ -8,18 +8,77 @@ title = "My awesome blog post"
 type = "post"
 
 +++
-Are you Developer and recently started your own business and Already made a website to ensure online presence and wants to reach more people. but you are not getting as much as response from your targeted customer or you are unable to reach them. SEO(Search engine optimization)is the cheapest way to reach your customer or client. After 2000 the Internet is more easy access to common people and most of the netizens to find out information search on google/yahoo/bing like a search engine. So if your site ranks at the top of the SERP for your target keywords then sure you will get more valuable traffic to your site and it will help you a lot to grow your business.
+### 问题
 
-Above Paragraph, you see SERP or Keywords that are common SEO Term so Before starting learning SEO let's learn the term used by the SEO expert. It will smoothen your learning journey. Or if you are wishing to hire an SEO guy it will help you his task he/she doing and understand he/she going on the right path. So not making delay let dive…
+数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
 
-**Algorithm:** “Algorithm is a process or set of rules to be followed in calculations or other problem-solving operations, especially by a computer.” It is its definition. In SEO we basically mean A very sophisticated and complex program used by the search engine to find out data and indexing it, And when a user gives a data query this program also decides the best result to place in the SERP in order. All search engines use multiple algorithms combination on their data collection and result giving process in different stages.
+### 示例
 
-    protocol ClickViewDelegate:NSObjectProtocol {
-        func btnClickIndex(index:Int)
+输入：n = 3
+
+输出：\[
+
+"((()))",
+
+"(()())",
+
+"(())()",
+
+"()(())",
+
+"()()()"
+
+\]
+
+### 解析
+
+使用递归方式，设置条件 left == n && right == n ，当条件满足时，跳出递归。在设置正确性验证方法，left < n 控制 ‘(’ 递归，left > right 控制 ‘)’ 递归，同时降低递归次数。
+
+    func generateParenthesis(_ n: Int) -> [String] {
+        var result: [String] = []
+        generate(n, left: 0, right: 0, current: "", result: &result)
+        return result
+      }
+    
+      private func generate(_ n: Int, left: Int, right: Int, current: String, result: inout [String]) {
+        if left == n && right == n {
+          result.append(current)
+          return
+        }
+    
+        if left < n {
+          generate(n, left: left + 1, right: right, current: current + "(", result: &result)
+        }
+    
+        if left > right {
+          generate(n, left: left, right: right + 1, current: current + ")", result: &result)
+        }
     }
 
-**Algorithm Change:** All the search engine service providers always try to give the best results to their users. So they always working on updating, refreshing or making and implementing new algorithms. The search engine service provider never revealed the exact date of rolling out any updates or new algorithms to make an effective date. Normally they give a boundary of time like this week or this month, we are going to rolling out a major update or applying new this algorithm. They give this new algorithm a name and they always call it by the given name. Like, google spider, Google panda, etc. Most of the time After one to two week we can see and understand the update or change impact but sometimes it also happens quicker also.
+### 代码
 
-* Algorithm Update: Search Engines regularly making minor changes in their system they normally don’t give an official announcement. But SEO related blogs and journals give the news what the changes made. So Keep update regular visit this industry-related community is important. And when the Major update come You must observe your ranking behavior and if you find you've got the penalty then quickly take necessary step undereating the guidelines given by search engine company.
-* Algorithm Refresh: Search engine operator after a regular interval re-run the existing algorithm to find out the new spammer.
-* New Algorithm: Improving search quality google and other search engines regularly bringing new algorithms. All new algorithm has its special purpose to serve in the total search engine working process.
+简单介绍：对上面代码进行修整，最终得到如下代码：
+
+> 时间复杂度：O(n²)
+
+    class Solution {
+        var ans = [String]()
+        
+        func generateParenthesis(_ n: Int) -> [String] {
+            fork(left: n, right: n, current: "")
+            return ans
+        }
+        
+        func fork(left: Int, right: Int, current: String) {
+            if right > 0 {
+                if left > 0 {
+                    fork(left: left - 1, right: right, current: current + "(")
+                }
+                if right > left {
+                    fork(left: left, right: right - 1, current: current + ")")
+                }
+            } else {
+                ans.append(current)
+            }
+        }
+    }
